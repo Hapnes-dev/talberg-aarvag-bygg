@@ -10,13 +10,18 @@ talberg-aarvag-bygg/
 ├── favicon.svg         # Monogram-favicon
 ├── css/style.css       # All styling (designtokens øverst)
 ├── js/main.js          # Mobilmeny, scroll-reveal, tilbudsskjema
-└── assets/
-    ├── monogram.svg    # TE-monogram (gjenskapt som SVG fra logoen)
-    └── img/            # Prosjektbilder hentet fra Mittanbud-profilen
-        ├── rekkverk.jpg
-        ├── etterisolering.jpg
-        ├── listing.jpg
-        └── profil.jpg  # (ubrukt – uformelt bilde av eierne)
+├── assets/
+│   ├── monogram.svg    # TE-monogram (gjenskapt som SVG fra logoen)
+│   ├── img/            # Bilder fra Mittanbud + Instagram (nedskalert for web)
+│   │   ├── tobias.jpg / elias.jpg   # Ansattportretter (Mittanbud)
+│   │   ├── firmabil.jpg             # Firmabilen (Instagram)
+│   │   ├── og-logo.jpg              # Originallogo – brukes som og:image
+│   │   └── etterisolering/listing/saupstad/soverom.jpg  # Prosjektbilder
+│   └── video/          # Reels fra Instagram (uten lyd – musikken er IG-lisensiert)
+│       ├── kledning.mp4
+│       └── sykkelbod.mp4
+└── media-arkiv/        # ALT som ble hentet fra Instagram/Facebook/Mittanbud
+                        # (50 filer, ~80 MB – står i .gitignore, kun lokalt)
 ```
 
 ## Design
@@ -47,6 +52,14 @@ Siden er ren HTML/CSS/JS og kan legges rett ut på:
 - Eget webhotell: last opp filene til rotmappen
 
 Husk eget domene, f.eks. `talbergaarvaagbygg.no` (sjekk ledighet på norid.no).
+
+## Merknader om media
+
+- Videoene er Instagram-reels uten lydspor. Det er med vilje: musikken i reels er
+  lisensiert for Instagram, ikke for egne nettsider. Klippene spilles dempet med kontroller.
+- `og:image` bruker relativ sti – bytt til full URL (https://domenet.no/assets/img/og-logo.jpg)
+  når siden får domene, ellers vises ikke forhåndsvisningsbildet ved deling.
+- Originalfiler i full oppløsning ligger i `media-arkiv/` (ikke i git).
 
 ## Verdt å vurdere senere
 
