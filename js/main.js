@@ -87,6 +87,45 @@
     });
   }
 
+  /* Bildegalleri-lysboks */
+  var lysboks = document.getElementById('lysboks');
+  var galleriKnapper = Array.prototype.slice.call(document.querySelectorAll('.galleri-item'));
+
+  if (lysboks && galleriKnapper.length && typeof lysboks.showModal === 'function') {
+    var lbBilde = lysboks.querySelector('img');
+    var lbTeller = lysboks.querySelector('.lysboks-teller');
+    var aktiv = 0;
+
+    var vis = function (i) {
+      aktiv = (i + galleriKnapper.length) % galleriKnapper.length;
+      var kilde = galleriKnapper[aktiv].querySelector('img');
+      lbBilde.src = kilde.src;
+      lbBilde.alt = kilde.alt;
+      lbTeller.textContent = (aktiv + 1) + ' / ' + galleriKnapper.length;
+    };
+
+    galleriKnapper.forEach(function (knapp, i) {
+      knapp.addEventListener('click', function () {
+        vis(i);
+        lysboks.showModal();
+      });
+    });
+
+    lysboks.querySelector('.lysboks-lukk').addEventListener('click', function () { lysboks.close(); });
+    lysboks.querySelector('.lysboks-forrige').addEventListener('click', function () { vis(aktiv - 1); });
+    lysboks.querySelector('.lysboks-neste').addEventListener('click', function () { vis(aktiv + 1); });
+
+    lysboks.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { vis(aktiv - 1); }
+      if (e.key === 'ArrowRight') { vis(aktiv + 1); }
+    });
+
+    /* klikk utenfor bildet lukker */
+    lysboks.addEventListener('click', function (e) {
+      if (e.target === lysboks) { lysboks.close(); }
+    });
+  }
+
   /* Footer year */
   var aar = document.getElementById('aar');
   if (aar) { aar.textContent = String(new Date().getFullYear()); }
