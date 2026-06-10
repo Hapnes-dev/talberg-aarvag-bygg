@@ -68,6 +68,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 video { max-width: 100%; height: auto; }
 
+/* Fullscreen: show the whole portrait reel (letterboxed), never cropped */
+video:fullscreen { object-fit: contain; width: 100%; height: 100%; background: #000; }
+video:-webkit-full-screen { object-fit: contain; width: 100%; height: 100%; background: #000; }
+
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   line-height: 1.12;
@@ -190,20 +194,20 @@ a, button, input, select, textarea { touch-action: manipulation; }
 .section-tint :focus-visible { outline-color: var(--honey-deep); }
 
 /* ---------- Angled section transitions ---------- */
-/* A shallow diagonal between color blocks, with a soft fade along the
-   edge (mask gradient) instead of a hard cut. The section still overlaps
-   the previous one by the notch height. */
+/* A clean shallow diagonal between color blocks. The section's top edge
+   rises to the right and overlaps the previous section by the notch height.
+   A soft drop-shadow along the cut gives a layered, intentional look. */
 
 .angle-top {
-  --notch: clamp(28px, 4vw, 56px);
+  --notch: clamp(26px, 3.5vw, 52px);
+  clip-path: polygon(0 var(--notch), 100% 0, 100% 100%, 0 100%);
   margin-top: calc(var(--notch) * -1);
-  -webkit-mask-image: linear-gradient(177.8deg, transparent 4px, #000 calc(var(--notch) + 22px));
-  mask-image: linear-gradient(177.8deg, transparent 4px, #000 calc(var(--notch) + 22px));
+  filter: drop-shadow(0 -6px 16px rgba(18, 11, 2, 0.22));
 }
 
-.section.angle-top { padding-top: calc(92px + var(--notch) * 0.5); }
+.section.angle-top { padding-top: calc(92px + var(--notch) * 0.6); }
 
-.band.angle-top .band-grid { padding-top: calc(84px + var(--notch) * 0.5); }
+.band.angle-top .band-grid { padding-top: calc(84px + var(--notch) * 0.6); }
 
 /* ---------- Topbar ---------- */
 

@@ -14,7 +14,7 @@ talberg-aarvag-bygg/
 ├── assets/
 │   ├── monogram.svg    # TE-monogram (gjenskapt som SVG fra logoen)
 │   ├── img/            # Bilder fra Mittanbud + Instagram (nedskalert for web)
-│   │   └── galleri/    # Alle 26 arbeidsbilder – «Bilder»-seksjonen med lysboks
+│   │   └── galleri/    # Alle 27 arbeidsbilder – «Bilder»-siden med lysboks
 │   │   ├── tobias.jpg / elias.jpg   # Ansattportretter (Mittanbud)
 │   │   ├── firmabil.jpg             # Firmabilen (Instagram)
 │   │   ├── og-logo.jpg              # Originallogo – brukes som og:image
