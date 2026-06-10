@@ -168,7 +168,7 @@ a, button, input, select, textarea { touch-action: manipulation; }
 .section-dark .section-lead { color: var(--muted-on-dark); }
 
 .section-paper { background: var(--cream); }
-.section-tint { background: var(--cream-2); }
+.section-tint { background: var(--cream); }
 
 .section-paper,
 .section-tint { color: var(--text-on-light); }
@@ -193,21 +193,32 @@ a, button, input, select, textarea { touch-action: manipulation; }
 .section-paper :focus-visible,
 .section-tint :focus-visible { outline-color: var(--honey-deep); }
 
-/* ---------- Angled section transitions ---------- */
-/* A clean shallow diagonal between color blocks. The section's top edge
-   rises to the right and overlaps the previous section by the notch height.
-   A soft drop-shadow along the cut gives a layered, intentional look. */
+/* ---------- Section transitions ---------- */
+/* Straight (horizontal) edges with a soft color blend: the previous section's
+   color fades into this one over ~90px, so there is no hard line. The blend
+   strip sits behind the section content (isolated stacking context). */
 
 .angle-top {
-  --notch: clamp(26px, 3.5vw, 52px);
-  clip-path: polygon(0 var(--notch), 100% 0, 100% 100%, 0 100%);
-  margin-top: calc(var(--notch) * -1);
-  filter: drop-shadow(0 -6px 16px rgba(18, 11, 2, 0.22));
+  position: relative;
+  isolation: isolate;
 }
 
-.section.angle-top { padding-top: calc(92px + var(--notch) * 0.6); }
+.angle-top::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 90px;
+  z-index: 0;
+  pointer-events: none;
+}
 
-.band.angle-top .band-grid { padding-top: calc(84px + var(--notch) * 0.6); }
+.angle-top > .container { position: relative; z-index: 1; }
+
+/* per-boundary blend colour = the section directly above */
+#tjenester.angle-top::before  { background: linear-gradient(var(--espresso), rgba(37, 29, 18, 0)); }
+.band.angle-top::before       { background: linear-gradient(var(--cream), rgba(247, 241, 230, 0)); }
+#prosjekter.angle-top::before { background: linear-gradient(#BC7F2C, rgba(188, 127, 44, 0)); }
+#kontakt.angle-top::before    { background: linear-gradient(var(--cream), rgba(247, 241, 230, 0)); }
 
 /* ---------- Topbar ---------- */
 
@@ -864,7 +875,6 @@ a, button, input, select, textarea { touch-action: manipulation; }
   background:
     radial-gradient(640px 320px at 50% 0%, rgba(206, 143, 63, 0.18), transparent 70%),
     var(--cream);
-  border-bottom: 1px solid var(--line-light);
   color: var(--text-on-light);
 }
 

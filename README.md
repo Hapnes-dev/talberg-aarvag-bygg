@@ -32,6 +32,8 @@ talberg-aarvag-bygg/
   logoblåtonene (`#4FA3E8` / `#2E3192`) lever kun i selve logomerket
 - **Fonter:** Archivo (overskrifter) + Hanken Grotesk (brødtekst), via Google Fonts
 - **Signatur:** tommestokk-/målebånd-motiv som skillelinjer (`.ruler` og `.hero-ruler`)
+- **Seksjonsoverganger:** rette (horisontale) kanter med myk fargeblending – forrige
+  seksjons farge toner ut i den neste over ~90px (`.angle-top::before`), ingen harde linjer
 - Struktur fra en Behance-referanse (tilbudsskjema i hero); varm tone fra en
   snekkerside-referanse (krem/honning/espresso med verkstedsfølelse)
 - Prosjektbildene får en lett varm fargetone via CSS-filter (`sepia` + `saturate`)
