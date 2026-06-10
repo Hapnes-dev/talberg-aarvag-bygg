@@ -214,11 +214,11 @@ a, button, input, select, textarea { touch-action: manipulation; }
 
 .angle-top > .container { position: relative; z-index: 1; }
 
-/* per-boundary blend colour = the section directly above */
-#tjenester.angle-top::before  { background: linear-gradient(var(--espresso), rgba(37, 29, 18, 0)); }
+/* Soft blend only between WARM tones (cream <-> honey) — these mix to a clean
+   warm midtone. The cream <-> dark boundaries are left as crisp straight edges,
+   because blending cream into espresso produces a muddy grey. */
 .band.angle-top::before       { background: linear-gradient(var(--cream), rgba(247, 241, 230, 0)); }
 #prosjekter.angle-top::before { background: linear-gradient(#BC7F2C, rgba(188, 127, 44, 0)); }
-#kontakt.angle-top::before    { background: linear-gradient(var(--cream), rgba(247, 241, 230, 0)); }
 
 /* ---------- Topbar ---------- */
 
