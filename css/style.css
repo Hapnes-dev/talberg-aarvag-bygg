@@ -186,6 +186,20 @@ a, button, input, select, textarea { touch-action: manipulation; }
 .section-paper :focus-visible,
 .section-tint :focus-visible { outline-color: var(--honey-deep); }
 
+/* ---------- Angled section transitions ---------- */
+/* A shallow diagonal cut between color blocks — the section's top edge
+   rises to the right and overlaps the previous section by the same amount. */
+
+.angle-top {
+  --notch: clamp(28px, 4vw, 56px);
+  clip-path: polygon(0 var(--notch), 100% 0, 100% 100%, 0 100%);
+  margin-top: calc(var(--notch) * -1);
+}
+
+.section.angle-top { padding-top: calc(92px + var(--notch) * 0.5); }
+
+.band.angle-top .band-grid { padding-top: calc(84px + var(--notch) * 0.5); }
+
 /* ---------- Topbar ---------- */
 
 .topbar {
@@ -325,7 +339,6 @@ a, button, input, select, textarea { touch-action: manipulation; }
     linear-gradient(90deg, rgba(255, 235, 200, 0.03) 1px, transparent 1px),
     var(--espresso);
   background-size: auto, auto, 48px 48px, 48px 48px, auto;
-  border-bottom: 1px solid var(--line-dark);
   overflow: hidden;
 }
 
@@ -986,6 +999,10 @@ a, button, input, select, textarea { touch-action: manipulation; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 
   .section { padding: 64px 0; }
+
+  .section.angle-top { padding-top: calc(64px + var(--notch) * 0.5); }
+
+  .band.angle-top .band-grid { padding-top: calc(64px + var(--notch) * 0.5); }
 }
 
 @media (max-width: 640px) {
