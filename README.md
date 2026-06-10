@@ -21,10 +21,13 @@ talberg-aarvag-bygg/
 
 ## Design
 
-- **Farger fra logoen:** mørk `#0B0E14`, himmelblå `#4FA3E8` (E-en), indigo `#2E3192` (T-en)
+- **Varm håndverkspalett:** krem `#F7F1E6`, honning `#CE8F3F`, espresso `#251D12` –
+  logoblåtonene (`#4FA3E8` / `#2E3192`) lever kun i selve logomerket
 - **Fonter:** Archivo (overskrifter) + Hanken Grotesk (brødtekst), via Google Fonts
 - **Signatur:** tommestokk-/målebånd-motiv som skillelinjer (`.ruler` og `.hero-ruler`)
-- Stilen er basert på en Behance-referanse (mørkt premium-tema med tilbudsskjema i hero)
+- Struktur fra en Behance-referanse (tilbudsskjema i hero); varm tone fra en
+  snekkerside-referanse (krem/honning/espresso med verkstedsfølelse)
+- Prosjektbildene får en lett varm fargetone via CSS-filter (`sepia` + `saturate`)
 
 ## Tilbudsskjemaet
 
