@@ -6,7 +6,8 @@ Statisk én-sides nettside for Talberg & Aarvåg Bygg AS (org.nr 937 528 140), t
 
 ```
 talberg-aarvag-bygg/
-├── index.html          # Hele siden (norsk)
+├── index.html          # Forsiden (norsk)
+├── bilder.html         # Egen bilde- og videoside (galleri + lysboks)
 ├── favicon.svg         # Monogram-favicon
 ├── css/style.css       # All styling (designtokens øverst)
 ├── js/main.js          # Mobilmeny, scroll-reveal, tilbudsskjema

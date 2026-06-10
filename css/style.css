@@ -61,9 +61,12 @@ body {
   background: var(--espresso);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip; /* guard against stray overflow (e.g. browser extensions); clip keeps sticky header working */
 }
 
 img { max-width: 100%; height: auto; display: block; }
+
+video { max-width: 100%; height: auto; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -702,6 +705,61 @@ a, button, input, select, textarea { touch-action: manipulation; }
 
 /* ---------- Bildegalleri ---------- */
 
+.page-tittel {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: #FFF9EE;
+}
+
+.media-undertittel {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFF9EE;
+  margin: 0 0 18px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  list-style: none;
+  margin: 0 0 56px;
+  padding: 0;
+}
+
+.video-grid li {
+  background: var(--espresso-2);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.video-grid video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 560px;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+.video-grid p {
+  margin: 0;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-on-dark);
+}
+
+.mainnav a[aria-current="page"] { color: var(--honey-strong); }
+
+.section-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
 .galleri-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1136,6 +1194,8 @@ a, button, input, select, textarea { touch-action: manipulation; }
 
   .galleri-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
+  .video-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
   .contact-grid { grid-template-columns: 1fr; }
 
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1167,6 +1227,10 @@ a, button, input, select, textarea { touch-action: manipulation; }
   .project-grid { grid-template-columns: 1fr; }
 
   .galleri-grid { grid-template-columns: 1fr 1fr; }
+
+  .video-grid { grid-template-columns: 1fr; }
+
+  .video-grid video { max-height: 70vh; }
 
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
 
