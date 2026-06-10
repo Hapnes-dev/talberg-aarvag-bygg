@@ -68,9 +68,31 @@ img { max-width: 100%; height: auto; display: block; }
 
 video { max-width: 100%; height: auto; }
 
-/* Fullscreen: show the whole portrait reel (letterboxed), never cropped */
-video:fullscreen { object-fit: contain; width: 100%; height: 100%; background: #000; }
-video:-webkit-full-screen { object-fit: contain; width: 100%; height: 100%; background: #000; }
+/* Fullscreen: show the whole portrait reel (letterboxed), never cropped.
+   Needs higher specificity than `.video-grid video`/`.project-card video`
+   (which set object-fit:cover + max-height) or those win by source order and
+   the portrait video gets cropped to a landscape slice. Keep the unprefixed
+   and -webkit- selectors in SEPARATE blocks so one unknown pseudo doesn't
+   invalidate the other. */
+.video-grid video:fullscreen,
+.project-card video:fullscreen,
+video:fullscreen {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  background: #000;
+}
+
+.video-grid video:-webkit-full-screen,
+.project-card video:-webkit-full-screen,
+video:-webkit-full-screen {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  background: #000;
+}
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
