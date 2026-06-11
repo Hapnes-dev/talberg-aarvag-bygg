@@ -47,15 +47,25 @@
     revealed.forEach(function (el) { io.observe(el); });
   }
 
-  /* Quote form -> opens a pre-filled e-mail draft (no backend needed).
-     Swap this for a Formspree/Netlify endpoint when one is set up. */
+  /* Tilbudsskjema -> sendes til e-post via Formsubmit (ingen egen server).
+     Mottakeren styres av SKJEMA_EPOST. Bytt denne til kundens e-post når
+     testen er bekreftet. Formsubmit sender en engangs aktiverings-e-post til
+     en ny mottakeradresse første gang den brukes. */
+  var SKJEMA_EPOST = 'thomaskvalvaag@hotmail.com';
+  var SKJEMA_ENDPOINT = 'https://formsubmit.co/ajax/' + SKJEMA_EPOST;
+
   var form = document.getElementById('tilbudsskjema');
 
   if (form) {
     var status = form.querySelector('.form-status');
+    var sendKnapp = form.querySelector('button[type="submit"]');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+
+      /* honningfelle: et skjult felt som kun bots fyller ut */
+      var honey = form.elements['_honey'];
+      if (honey && honey.value) { return; }
 
       var navn = form.navn.value.trim();
       var telefon = form.telefon.value.trim();
@@ -68,22 +78,45 @@
       }
 
       status.classList.remove('error');
+      status.textContent = 'Sender …';
+      var opprinneligTekst = sendKnapp.textContent;
+      sendKnapp.disabled = true;
+      sendKnapp.textContent = 'Sender …';
 
-      var emne = 'Forespørsel fra nettsiden: ' + form.type.value;
-      var linjer = [
-        'Navn: ' + navn,
-        'Telefon: ' + telefon,
-        'E-post: ' + (form.epost.value.trim() || '-'),
-        'Gjelder: ' + form.type.value,
-        '',
-        form.melding.value.trim()
-      ];
+      var data = {
+        Navn: navn,
+        Telefon: telefon,
+        'E-post': form.epost.value.trim() || '(ikke oppgitt)',
+        Gjelder: form.type.value,
+        Beskrivelse: form.melding.value.trim() || '(ingen beskrivelse)',
+        _subject: 'Ny forespørsel fra nettsiden – ' + form.type.value,
+        _template: 'table',
+        _captcha: 'false'
+      };
 
-      window.location.href = 'mailto:tobiastalberg030505@gmail.com' +
-        '?subject=' + encodeURIComponent(emne) +
-        '&body=' + encodeURIComponent(linjer.join('\n'));
-
-      status.textContent = 'E-postutkast åpnet – send det fra e-postprogrammet ditt. Du kan også ringe 93 80 47 00.';
+      fetch(SKJEMA_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (j) {
+          if (j && (j.success === 'true' || j.success === true)) {
+            form.reset();
+            status.classList.remove('error');
+            status.textContent = 'Takk! Forespørselen er sendt – vi tar kontakt så snart vi kan.';
+          } else {
+            throw new Error('ikke levert');
+          }
+        })
+        .catch(function () {
+          status.classList.add('error');
+          status.textContent = 'Beklager, noe gikk galt. Prøv igjen, eller ring oss på 93 80 47 00.';
+        })
+        .then(function () {
+          sendKnapp.disabled = false;
+          sendKnapp.textContent = opprinneligTekst;
+        });
     });
   }
 
