@@ -10,12 +10,12 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="nb_NO">
   <meta property="og:image" content="assets/img/og-logo.jpg">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" href="favicon.png">
   <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=13">
+  <link rel="stylesheet" href="css/style.css?v=14">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -44,14 +44,7 @@
   <header class="topbar" id="topp">
     <div class="container topbar-inner">
       <a class="brand" href="#topp" aria-label="Talberg &amp; Aarvåg Bygg AS – til toppen">
-        <svg class="brand-mark" viewBox="0 0 150 118" aria-hidden="true" focusable="false">
-          <path d="M8 8 H86 V30 H58 V94 H36 V30 H8 Z" fill="#2E3192"/>
-          <g transform="skewX(-7) translate(14 0)">
-            <path d="M66 4 H138 V28 H90 V42 H130 V60 H90 V72 H138 V96 H66 Z" fill="#1A1D54" transform="translate(6 6)"/>
-            <path d="M66 4 H138 V28 H90 V42 H130 V60 H90 V72 H138 V96 H66 Z" fill="#4FA3E8" stroke="#FFFFFF" stroke-width="4"/>
-          </g>
-          <path d="M10 104 C 48 114, 102 114, 140 103 L 130 111 C 96 119, 50 119, 18 110 Z" fill="#2E3192"/>
-        </svg>
+        <img class="brand-mark" src="assets/img/logo-te.png" alt="" width="473" height="262">
         <span class="brand-text">
           <span class="brand-name">Talberg &amp; Aarvåg</span>
           <span class="brand-sub">Bygg AS</span>
@@ -134,6 +127,7 @@
               <label for="f-melding">Beskriv jobben</label>
               <textarea id="f-melding" name="melding" rows="4" placeholder="F.eks. «Vi skal bytte kledning på en enebolig fra 1978 …»"></textarea>
             </div>
+            <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button class="btn btn-primary btn-block" type="submit">Send forespørsel</button>
             <p class="form-status" role="status" aria-live="polite"></p>
             <p class="form-alt">Eller ring oss direkte på <a href="tel:+4793804700">93 80 47 00</a></p>
@@ -374,14 +368,7 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <svg class="footer-mark" viewBox="0 0 150 118" aria-hidden="true" focusable="false">
-          <path d="M8 8 H86 V30 H58 V94 H36 V30 H8 Z" fill="#2E3192"/>
-          <g transform="skewX(-7) translate(14 0)">
-            <path d="M66 4 H138 V28 H90 V42 H130 V60 H90 V72 H138 V96 H66 Z" fill="#1A1D54" transform="translate(6 6)"/>
-            <path d="M66 4 H138 V28 H90 V42 H130 V60 H90 V72 H138 V96 H66 Z" fill="#4FA3E8" stroke="#FFFFFF" stroke-width="4"/>
-          </g>
-          <path d="M10 104 C 48 114, 102 114, 140 103 L 130 111 C 96 119, 50 119, 18 110 Z" fill="#2E3192"/>
-        </svg>
+        <img class="footer-mark" src="assets/img/logo-te.png" alt="" width="473" height="262" loading="lazy">
         <p class="footer-brand-name">Talberg &amp; Aarvåg <span>Bygg AS</span></p>
         <p class="footer-blurb">Et solid byggefirma som leverer kvalitetsarbeid til privat- og bedriftskunder i Trøndelag.</p>
         <div class="footer-social">
@@ -419,6 +406,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>

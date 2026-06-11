@@ -8,12 +8,12 @@ Statisk én-sides nettside for Talberg & Aarvåg Bygg AS (org.nr 937 528 140), t
 talberg-aarvag-bygg/
 ├── index.html          # Forsiden (norsk)
 ├── bilder.html         # Egen bilde- og videoside (galleri + lysboks)
-├── favicon.svg         # Monogram-favicon
+├── favicon.png         # Favicon laget av den ekte logoen
 ├── css/style.css       # All styling (designtokens øverst)
 ├── js/main.js          # Mobilmeny, scroll-reveal, tilbudsskjema
 ├── assets/
-│   ├── monogram.svg    # TE-monogram (gjenskapt som SVG fra logoen)
 │   ├── img/            # Bilder fra Mittanbud + Instagram (nedskalert for web)
+│   │   ├── logo-te.png # Det EKTE TE-merket (trukket ut av originallogoen, gjennomsiktig bakgrunn)
 │   │   └── galleri/    # Alle 27 arbeidsbilder – «Bilder»-siden med lysboks
 │   │   ├── tobias.jpg / elias.jpg   # Ansattportretter (Mittanbud)
 │   │   ├── firmabil.jpg             # Firmabilen (Instagram)

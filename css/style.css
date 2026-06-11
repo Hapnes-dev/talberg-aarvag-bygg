@@ -246,7 +246,7 @@ a, button, input, select, textarea { touch-action: manipulation; }
   margin-right: auto;
 }
 
-.brand-mark { width: 44px; height: auto; flex-shrink: 0; }
+.brand-mark { width: 56px; height: auto; flex-shrink: 0; }
 
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 
@@ -1070,7 +1070,7 @@ a, button, input, select, textarea { touch-action: manipulation; }
   padding-bottom: 40px;
 }
 
-.footer-mark { width: 56px; height: auto; margin-bottom: 14px; }
+.footer-mark { width: 88px; height: auto; margin-bottom: 14px; }
 
 .footer-brand-name {
   font-family: var(--font-display);
@@ -1254,7 +1254,7 @@ a, button, input, select, textarea { touch-action: manipulation; }
 
   .brand-name { font-size: 0.78rem; }
   .brand-sub { font-size: 0.58rem; }
-  .brand-mark { width: 38px; }
+  .brand-mark { width: 46px; }
 
   .topbar-phone-text { display: none; }
 
