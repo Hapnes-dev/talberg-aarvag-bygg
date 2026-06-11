@@ -945,12 +945,13 @@ a, button, input, select, textarea { touch-action: manipulation; }
   box-shadow: var(--shadow-card-light);
 }
 
+/* samme oppskrift som Mittanbud: hele portrettet, cover sentrert, 80px sirkel */
 .team-card img {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--honey);
+  object-position: 50% 50%;
 }
 
 .team-card h3 {
