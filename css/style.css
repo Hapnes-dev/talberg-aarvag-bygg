@@ -615,6 +615,14 @@ a, button, input, select, textarea { touch-action: manipulation; }
   text-align: center;
 }
 
+.form-personvern {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #8C8069;
+  text-align: center;
+}
+
 /* ---------- Services ---------- */
 
 .service-grid {
@@ -1289,8 +1297,17 @@ a, button, input, select, textarea { touch-action: manipulation; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
   .js .reveal { opacity: 1; transform: none; transition: none; }
-  .btn, .service-card, .project-card, .nav-toggle span { transition: none; }
+
+  .btn, .btn-ikon, .service-card, .project-card, .project-card img,
+  .galleri-item, .galleri-item img, .team-card, .nav-toggle span,
+  .mainnav a, .topbar-phone, .footer-social a, .skip-link { transition: none; }
+
+  .project-card:hover img,
+  .galleri-item:hover img { transform: none; }
+
+  .btn:hover .btn-ikon { transform: none; }
 }
 
 /* ---------- Responsive ---------- */

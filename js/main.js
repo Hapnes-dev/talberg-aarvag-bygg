@@ -60,6 +60,20 @@
     var status = form.querySelector('.form-status');
     var sendKnapp = form.querySelector('button[type="submit"]');
 
+    /* feltfeil nullstilles når brukeren retter */
+    ['navn', 'telefon', 'epost'].forEach(function (n) {
+      if (form[n]) {
+        form[n].addEventListener('input', function () { this.removeAttribute('aria-invalid'); });
+      }
+    });
+
+    var feltFeil = function (felt, melding) {
+      status.textContent = melding;
+      status.classList.add('error');
+      felt.setAttribute('aria-invalid', 'true');
+      felt.focus();
+    };
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
@@ -70,10 +84,10 @@
       var navn = form.navn.value.trim();
       var telefon = form.telefon.value.trim();
 
-      if (!navn || !telefon) {
-        status.textContent = 'Fyll inn navn og telefonnummer, så kan vi kontakte deg.';
-        status.classList.add('error');
-        (!navn ? form.navn : form.telefon).focus();
+      if (!navn) { feltFeil(form.navn, 'Fyll inn navn, så kan vi kontakte deg.'); return; }
+      if (!telefon) { feltFeil(form.telefon, 'Fyll inn telefonnummer, så kan vi kontakte deg.'); return; }
+      if (form.epost.value.trim() && !form.epost.checkValidity()) {
+        feltFeil(form.epost, 'E-postadressen ser ikke riktig ut – sjekk den, eller la feltet stå tomt.');
         return;
       }
 
@@ -94,12 +108,19 @@
         _captcha: 'false'
       };
 
+      var ctrl = ('AbortController' in window) ? new AbortController() : null;
+      var tidsfrist = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
+
       fetch(SKJEMA_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        signal: ctrl ? ctrl.signal : undefined
       })
-        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (r) {
+          if (!r.ok) { throw new Error('http ' + r.status); }
+          return r.json().catch(function () { return {}; });
+        })
         .then(function (j) {
           if (j && (j.success === 'true' || j.success === true)) {
             form.reset();
@@ -113,7 +134,8 @@
           status.classList.add('error');
           status.textContent = 'Beklager, noe gikk galt. Prøv igjen, eller ring oss på 93 80 47 00.';
         })
-        .then(function () {
+        .finally(function () {
+          if (tidsfrist) { clearTimeout(tidsfrist); }
           sendKnapp.disabled = false;
           sendKnapp.textContent = opprinneligTekst;
         });
@@ -134,10 +156,19 @@
       var kilde = galleriKnapper[aktiv].querySelector('img');
       lbBilde.src = kilde.src;
       lbBilde.alt = kilde.alt;
+      lysboks.setAttribute('aria-label', 'Bildevisning: ' + kilde.alt);
       lbTeller.textContent = (aktiv + 1) + ' / ' + galleriKnapper.length;
+      /* forhåndslast naboene så piltastene føles umiddelbare */
+      [aktiv + 1, aktiv - 1].forEach(function (j) {
+        var nabo = galleriKnapper[(j + galleriKnapper.length) % galleriKnapper.length].querySelector('img');
+        var im = new Image();
+        im.src = nabo.src;
+      });
     };
 
     galleriKnapper.forEach(function (knapp, i) {
+      var bilde = knapp.querySelector('img');
+      if (bilde) { knapp.setAttribute('aria-label', 'Åpne i full størrelse: ' + bilde.alt); }
       knapp.addEventListener('click', function () {
         vis(i);
         lysboks.showModal();
@@ -157,6 +188,14 @@
     lysboks.addEventListener('click', function (e) {
       if (e.target === lysboks) { lysboks.close(); }
     });
+  } else if (galleriKnapper.length) {
+    /* fallback uten <dialog>-støtte: åpne bildet i ny fane */
+    galleriKnapper.forEach(function (knapp) {
+      var bilde = knapp.querySelector('img');
+      if (!bilde) { return; }
+      knapp.setAttribute('aria-label', 'Åpne i full størrelse: ' + bilde.alt);
+      knapp.addEventListener('click', function () { window.open(bilde.src, '_blank', 'noopener'); });
+    });
   }
 
   /* Scrollspy: uthev aktiv seksjon i toppmenyen (kun på forsiden) */
@@ -172,8 +211,12 @@
     var spy = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) { return; }
-        navLenker.forEach(function (a) { a.classList.remove('is-active'); });
+        navLenker.forEach(function (a) {
+          a.classList.remove('is-active');
+          a.removeAttribute('aria-current');
+        });
         lenkeForSeksjon[e.target.id].classList.add('is-active');
+        lenkeForSeksjon[e.target.id].setAttribute('aria-current', 'location');
       });
     }, { rootMargin: '-35% 0px -55% 0px' });
 
