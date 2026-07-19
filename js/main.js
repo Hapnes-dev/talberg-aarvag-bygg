@@ -159,6 +159,29 @@
     });
   }
 
+  /* Scrollspy: uthev aktiv seksjon i toppmenyen (kun på forsiden) */
+  var navLenker = Array.prototype.slice.call(document.querySelectorAll('.mainnav a[href^="#"]'));
+
+  if (navLenker.length && 'IntersectionObserver' in window) {
+    var lenkeForSeksjon = {};
+    navLenker.forEach(function (a) {
+      var sec = document.getElementById(a.getAttribute('href').slice(1));
+      if (sec) { lenkeForSeksjon[sec.id] = a; }
+    });
+
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) { return; }
+        navLenker.forEach(function (a) { a.classList.remove('is-active'); });
+        lenkeForSeksjon[e.target.id].classList.add('is-active');
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+
+    Object.keys(lenkeForSeksjon).forEach(function (id) {
+      spy.observe(document.getElementById(id));
+    });
+  }
+
   /* Footer year */
   var aar = document.getElementById('aar');
   if (aar) { aar.textContent = String(new Date().getFullYear()); }

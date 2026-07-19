@@ -34,8 +34,8 @@
   --font-display: "Archivo", "Arial Black", sans-serif;
   --font-body: "Hanken Grotesk", "Segoe UI", sans-serif;
 
-  --radius: 8px;
-  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-sm: 8px;
   --container: 1160px;
   --shadow-card: 0 10px 30px rgba(24, 16, 5, 0.4);
   --shadow-card-light: 0 8px 24px rgba(64, 50, 26, 0.1);
@@ -69,6 +69,19 @@ body {
 }
 
 img { max-width: 100%; height: auto; display: block; }
+
+::selection { background: rgba(206, 143, 63, 0.35); color: inherit; }
+
+/* subtil "papir"-kornstruktur over hele siden (håndverksfølelse) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
 video { max-width: 100%; height: auto; }
 
@@ -152,16 +165,32 @@ a, button, input, select, textarea { touch-action: manipulation; }
 /* ---------- Eyebrow + section heads ---------- */
 
 .eyebrow {
+  display: inline-block;
   font-family: var(--font-display);
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--honey-gold);
-  margin: 0 0 14px;
+  background: rgba(206, 143, 63, 0.1);
+  border: 1px solid rgba(222, 162, 84, 0.35);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin: 0 0 16px;
 }
 
-.eyebrow-light { color: #5C3D12; }
+.section-paper .eyebrow,
+.section-tint .eyebrow,
+.section-review .eyebrow {
+  background: rgba(143, 90, 27, 0.07);
+  border-color: rgba(143, 90, 27, 0.3);
+}
+
+.eyebrow-light {
+  color: #4A3110;
+  background: rgba(255, 250, 238, 0.4);
+  border-color: rgba(78, 55, 18, 0.35);
+}
 
 /* Signature: folding-rule tick divider */
 .ruler {
@@ -176,7 +205,7 @@ a, button, input, select, textarea { touch-action: manipulation; }
   background-repeat: no-repeat;
 }
 
-.section { padding: 92px 0; }
+.section { padding: 108px 0; }
 
 .section-head { max-width: 640px; margin-bottom: 44px; }
 
@@ -234,6 +263,7 @@ a, button, input, select, textarea { touch-action: manipulation; }
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line-dark);
+  box-shadow: 0 8px 24px rgba(10, 7, 3, 0.28);
 }
 
 .topbar-inner {
@@ -293,6 +323,8 @@ a, button, input, select, textarea { touch-action: manipulation; }
 }
 
 .mainnav a:hover { color: var(--honey-strong); background: rgba(206, 143, 63, 0.12); }
+
+.mainnav a.is-active { color: var(--honey-strong); }
 
 .topbar-phone {
   display: flex;
@@ -430,9 +462,10 @@ a, button, input, select, textarea { touch-action: manipulation; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
+  gap: 10px;
+  min-height: 50px;
   padding: 12px 26px;
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   border: 1px solid transparent;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -441,6 +474,23 @@ a, button, input, select, textarea { touch-action: manipulation; }
   cursor: pointer;
   transition: background-color 220ms var(--ease-smooth), border-color 220ms var(--ease-smooth), transform 220ms var(--ease-smooth);
 }
+
+/* nestet pil-sirkel i primærknappen ("button-in-button") */
+.btn-ikon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-right: -12px;
+  border-radius: 50%;
+  background: rgba(31, 23, 9, 0.16);
+  transition: transform 220ms var(--ease-smooth);
+}
+
+.btn-ikon svg { width: 15px; height: 15px; }
+
+.btn:hover .btn-ikon { transform: translateX(3px); }
 
 .btn:active { transform: translateY(1px) scale(0.985); }
 
@@ -588,10 +638,14 @@ a, button, input, select, textarea { touch-action: manipulation; }
 .service-card:hover { transform: translateY(-4px); border-color: var(--honey); }
 
 .service-icon {
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
+  padding: 10px;
   color: var(--honey-deep);
-  margin-bottom: 14px;
+  background: rgba(206, 143, 63, 0.12);
+  border: 1px solid rgba(143, 90, 27, 0.14);
+  border-radius: 12px;
+  margin-bottom: 16px;
 }
 
 .service-card h3 { font-size: 1.04rem; font-weight: 700; margin-bottom: 6px; }
@@ -696,6 +750,10 @@ a, button, input, select, textarea { touch-action: manipulation; }
   background: #1A140B;
 }
 
+.project-card img { transition: transform 600ms var(--ease-smooth); }
+
+.project-card:hover img { transform: scale(1.04); }
+
 .project-info { padding: 18px 20px 16px; }
 
 .project-info h3 { font-size: 1.06rem; font-weight: 700; margin-bottom: 6px; }
@@ -793,7 +851,10 @@ a, button, input, select, textarea { touch-action: manipulation; }
   object-fit: cover;
   display: block;
   filter: sepia(0.1) saturate(1.04);
+  transition: transform 600ms var(--ease-smooth);
 }
+
+.galleri-item:hover img { transform: scale(1.05); }
 
 .lysboks {
   border: none;
@@ -1050,10 +1111,14 @@ a, button, input, select, textarea { touch-action: manipulation; }
 }
 
 .contact-card svg {
-  width: 34px;
-  height: 34px;
+  width: 48px;
+  height: 48px;
+  padding: 11px;
   color: var(--honey-strong);
-  margin-bottom: 12px;
+  background: rgba(206, 143, 63, 0.12);
+  border: 1px solid rgba(222, 162, 84, 0.22);
+  border-radius: 12px;
+  margin-bottom: 14px;
 }
 
 .contact-card h3 { font-size: 1.05rem; font-weight: 700; color: #FFF9EE; margin-bottom: 8px; }
